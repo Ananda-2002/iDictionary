@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}
+Home | iDictionary
+{% endblock title %}
+{% block body %}
+<div class="container">
+    <textarea style="width: 100%;" id="textarea"></textarea>
+    <button type="button" class="btn btn-primary" onclick="get_data()" id="button">Search</button>
+</div>
+<div class="container">
+    <div id="result">
+        <p>Word : <span id="word"></span></p>
+        <p>Corrected word : <span id="corrected_word"></span></p>
+        <p>Translation : <span id="translation"></span></p>
+        <p>Synonyms : <br><span id="synonyms"></span></p>
+        <p>Antonyms : <br><span id="antonyms"></span></p>
+        <p>Parts of Speech : <br><span id="parts_of_speech"></span></p>
+    </div>
+</div>
+<script>
+    async function get_data() {
+        document.getElementById('button').innerText = "Searching"
+        data = document.getElementById('textarea').value
+        if (!data) {
+            alert("Field cannot be blank")
+            document.getElementById('button').innerText = "Search"
+            return
+        }
+        //console.log(data)
+        param = {
+            text: data,
+            from: "English",
+            to: "Bengali"
+        }
+        res = {}
+        await fetch('api/get-all', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(param)
+        }).then(response => response.json())
+            .then(data => {
+                //console.log(data)
+                res = data
+            }).catch(e => {
+                document.getElementById('button').innerText = "Search"
+                document.getElementById('result').innerText = "Error";
+            });
+        document.getElementById('word').innerText = res.payload.data.word;
+        document.getElementById('corrected_word').innerText = res.payload.data.corrected_word;
+        synonyms = res.payload.data.syn_ant.synonyms
+        synonyms_txt = ''
+        Object.keys(synonyms).forEach(e => {
+            synonyms_txt += `<br>${e}` + '<hr>';
+            synonyms[e].forEach(f => { //console.log(f); 
+                synonyms_txt += f + ', '
+            })
+        });
+        document.getElementById('synonyms').innerHTML = synonyms_txt
+        antonyms = res.payload.data.syn_ant.antonyms
+        antonyms_txt = ''
+        Object.keys(antonyms).forEach(e => {
+            antonyms_txt += `<br>${e}` + '<hr>';
+            antonyms[e].forEach(f => { //console.log(f); 
+                antonyms_txt += f + ', '
+            })
+        });
+        document.getElementById('antonyms').innerHTML = antonyms_txt
+        parts_of_speech = res.payload.data.parts_of_speech
+        parts_of_speech_txt = ''
+        Object.keys(parts_of_speech).forEach(e => parts_of_speech_txt += (e + " : " + parts_of_speech[e] + '<br>'))
+        document.getElementById('parts_of_speech').innerHTML = parts_of_speech_txt;
+        document.getElementById('translation').innerText = res.payload.data.translation;
+        document.getElementById('button').innerText = "Result"
+    }
+</script>
+{% endblock body %}
