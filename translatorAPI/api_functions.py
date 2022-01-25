@@ -131,7 +131,7 @@ def get_parts_of_speech(word):
             items = (list(items))
             try:
                 items[1] = parts_of_speech_dict[items[1]]
-                print(items)
+                # print(items)
                 result_dict[items[0]] = items[1]
             except Exception as e:
                 pass
