@@ -68,10 +68,10 @@ Home | iDictionary
             })
         });
         document.getElementById('antonyms').innerHTML = antonyms_txt
-        //parts_of_speech = res.payload.data.parts_of_speech
-        //parts_of_speech_txt = ''
-        //Object.keys(parts_of_speech).forEach(e => parts_of_speech_txt += (e + " : " + parts_of_speech[e] + '<br>'))
-        //document.getElementById('parts_of_speech').innerHTML = parts_of_speech_txt;
+        parts_of_speech = res.payload.data.parts_of_speech
+        parts_of_speech_txt = ''
+        Object.keys(parts_of_speech).forEach(e => parts_of_speech_txt += (e + " : " + parts_of_speech[e] + '<br>'))
+        document.getElementById('parts_of_speech').innerHTML = parts_of_speech_txt;
         document.getElementById('translation').innerText = res.payload.data.translation;
         document.getElementById('button').innerText = "Result"
     }
