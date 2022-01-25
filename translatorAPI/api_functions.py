@@ -139,7 +139,7 @@ def get_parts_of_speech(word):
         return {'data': result_dict}
     except Exception as e:
         print(e)
-        error_dict = {'error': 'Something went wrong'}
+        error_dict = {'data': ['Something went wrong']}
         return error_dict
 
 
