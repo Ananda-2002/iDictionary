@@ -73,9 +73,16 @@ def get_synonyms(word):
             print('The meaning of the word : ' + synset[0].definition())
             print('Example of '+word+' : ' + str(synset[0].examples()))
             '''
+            definition = []
+            examples = []
+            for e in synset:
+                definition.append(e.definition())
+                for item in e.examples():
+                    examples.append(item)
+
             syn_ant.update({"synonyms": synset[0].lemmas()[0].name(),
-                            "meaning": synset[0].definition(),
-                            "example": (synset[0].examples())})
+                            "definition": definition,  # synset[0].definition()
+                            "example": examples})  # (synset[0].examples())
         else:
             syn_ant.update({
                 "meaning": [],
