@@ -1,6 +1,7 @@
 from nltk.corpus import wordnet  # Import wordnet from the NLTK
 from gingerit.gingerit import GingerIt
-from nltk import tokenize  # pos_tag, word_tokenize
+# from nltk import tokenize  # pos_tag, word_tokenize
+import nltk
 from googletrans import Translator
 
 
@@ -122,8 +123,8 @@ def get_correct_word(word):
 def get_parts_of_speech(word):
     try:
         sentence = word
-        tokens = tokenize.word_tokenize(sentence)
-        tagged = tokenize.pos_tag(tokens)
+        tokens = nltk.word_tokenize(sentence)
+        tagged = nltk.pos_tag(tokens)
         parts_of_speech = tagged
         result_dict = {}
         for items in parts_of_speech:

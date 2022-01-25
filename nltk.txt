@@ -1,4 +1,4 @@
 wordnet
-tokenize 
+tokenizers
 punkt
 pos_tag
