@@ -1,0 +1,3 @@
+wordnet
+word_tokenize
+pos_tag
