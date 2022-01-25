@@ -1,4 +1,1 @@
 wordnet
-tokenizers
-punkt
-pos_tag

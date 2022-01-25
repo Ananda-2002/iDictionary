@@ -158,13 +158,13 @@ def get_all(word, form, to):
     try:
         correct_word = get_correct_word(word).get('data')
         syn_ant = get_synonyms(correct_word).get('data')
-        part_of_speech_data = get_parts_of_speech(correct_word).get('data')
+        # part_of_speech_data = get_parts_of_speech(correct_word).get('data')
         translation = get_trans(correct_word, form, to).get('data')
         result = {
             "word": word,
             "corrected_word": correct_word,
             "syn_ant": syn_ant,
-            "parts_of_speech": part_of_speech_data,
+            # "parts_of_speech": part_of_speech_data,
             "translation": translation
         }
         return {'data': result}
