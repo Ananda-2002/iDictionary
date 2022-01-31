@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'rest_framework',
 
 
-    'APIRegistration'
+    'APIRegistration',
+
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -54,6 +57,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'iDictionary.urls'
@@ -135,4 +142,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
