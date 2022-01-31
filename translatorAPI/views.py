@@ -24,11 +24,11 @@ def all(request):
         try:
             data = request.data
             res = get_all(data['text'], data['from'], data['to'])
-            return Response({'status': 200, 'payload': res, 'message': 'api working'})
+            return Response({'status': 200, 'success': True, 'payload': res, 'message': 'api working'})
         except Exception as e:
             print(e)
-            return Response({'status': 503, 'error': 'Something went wrong!'})
-    return Response({'status': 405, 'message': 'Method not allowed!'})
+            return Response({'status': 503, 'success': False, 'error': 'Something went wrong!'})
+    return Response({'status': 405, 'success': False, 'message': 'Method not allowed!'})
 
 
 @api_view(['POST'])
@@ -87,7 +87,7 @@ def translation(request):
 @api_view(['GET'])
 def languages(request):
     try:
-        return Response({'status': 200, 'payload': languages_dict, 'messsage': 'api working'})
+        return Response({'status': 200, 'success': True, 'payload': languages_dict, 'messsage': 'api working'})
     except Exception as e:
         print(e)
-        return Response({'status': 503, 'error': 'Something went wrong!'})
+        return Response({'status': 503, 'success': False, 'error': 'Something went wrong!'})

@@ -3,6 +3,7 @@ from gingerit.gingerit import GingerIt
 import nltk
 from googletrans import Translator
 
+
 translator = Translator()
 
 parts_of_speech_dict = {
@@ -48,6 +49,16 @@ languages_dict.update({'languages': ['afrikaans', 'albanian', 'amharic', 'arabic
                       'korean', 'kurdish (kurmanji)', 'kyrgyz', 'lao', 'latin', 'latvian', 'lithuanian', 'luxembourgish', 'macedonian', 'malagasy', 'malay', 'malayalam', 'maltese', 'maori', 'marathi', 'mongolian', 'myanmar (burmese)', 'nepali', 'norwegian', 'odia', 'pashto', 'persian', 'polish', 'portuguese', 'punjabi', 'romanian', 'russian', 'samoan', 'scots gaelic', 'serbian', 'sesotho', 'shona', 'sindhi', 'sinhala', 'slovak', 'slovenian', 'somali', 'spanish', 'sundanese', 'swahili', 'swedish', 'tajik', 'tamil', 'telugu', 'thai', 'turkish', 'ukrainian', 'urdu', 'uyghur', 'uzbek', 'vietnamese', 'welsh', 'xhosa', 'yiddish', 'yoruba', 'zulu']})
 
 
+# def get_definition(word):
+#     try:
+#         definition = (dictionary.meaning(word))
+#         return definition.get("Noun")
+
+#     except Exception as e:
+#         print(e)
+#         return []
+
+
 def get_synonyms(word):
     try:
         synset = wordnet.synsets(word)
@@ -72,7 +83,7 @@ def get_synonyms(word):
                             "example": examples})  # (synset[0].examples())
         else:
             syn_ant.update({
-                "meaning": [],
+                "definition": [],
                 "example": []})
 
         syn = list()
@@ -120,9 +131,15 @@ def get_synonyms(word):
 def get_correct_word(word):
     try:
         text = word
-        parser = GingerIt()
-        result_dict = parser.parse(text)
-        return {'data': result_dict["result"]}
+        # parser = GingerIt()
+        # print(type(text))
+        # result_dict = parser.parse(text)
+        # print(parser.parse(text))
+        # return {'data':  result_dict["result"]}
+        # b = TextBlob(word)
+        # print(str(b.correct()))
+        # result = str(b.correct())
+        return {'data': word}
     except Exception as e:
         print(e)
         error_dict = {'error': 'Something went wrong'}
@@ -172,7 +189,10 @@ def get_all(word, form, to):
         result = {
             "word": word,
             "corrected_word": correct_word,
-            "syn_ant": syn_ant,
+            "synonyms": syn_ant.get('synonyms'),
+            "antonyms": syn_ant.get('antonyms'),
+            "definition": syn_ant.get('definition'),
+            "example": syn_ant.get('example'),
             "parts_of_speech": part_of_speech_data,
             "translation": translation,
         }
@@ -180,5 +200,5 @@ def get_all(word, form, to):
 
     except Exception as e:
         print(e)
-        error_dict = {'error': 'Something went wrong'}
+        error_dict = {'data': 'Something went wrong'}
         return error_dict
